@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'post',
@@ -23,7 +23,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: {type: 'author'},
+      to: { type: 'author' },
     }),
     defineField({
       name: 'mainImage',
@@ -38,7 +38,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{ type: 'reference', to: { type: 'category' } }],
     }),
     defineField({
       name: 'publishedAt',
@@ -48,7 +48,22 @@ export default defineType({
     defineField({
       name: 'body',
       title: 'Body',
-      type: 'blockContent',
+      type: 'array',
+      of: [
+        {
+          type: 'block',
+          styles: [
+            {title: 'Normal', value: 'normal'},
+            {title: 'H1', value: 'h1'},
+            {title: 'H2', value: 'h2'},
+            {title: 'H3', value: 'h3'},
+            {title: 'H4', value: 'h4'},
+            {title: 'H5', value: 'h5'},
+            {title: 'H6', value: 'h6'},
+            {title: 'Quote', value: 'blockquote'}
+          ]
+        }
+      ]
     }),
     defineField({
       type: 'code',
@@ -57,9 +72,9 @@ export default defineType({
       options: {
         language: 'javascript',
         languageAlternatives: [
-          {title: 'Javascript', value: 'javascript'},
-          {title: 'HTML', value: 'html'},
-          {title: 'CSS', value: 'css'},
+          { title: 'Javascript', value: 'javascript' },
+          { title: 'HTML', value: 'html' },
+          { title: 'CSS', value: 'css' },
         ],
         withFilename: true,
       }
@@ -73,8 +88,8 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const { author } = selection
+      return { ...selection, subtitle: author && `by ${author}` }
     },
   },
 })
